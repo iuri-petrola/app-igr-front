@@ -15,6 +15,11 @@
       <h2>Galeria</h2>
       <form #fotoFormElement (ngSubmit)="saveFoto()" class="form">
         <input [(ngModel)]="fotoForm.titulo" name="fotoTitulo" placeholder="Nome" required />
+        <select [(ngModel)]="fotoForm.ministerio" name="fotoMinisterio" required>
+          <option value="geral">Geral</option>
+          <option value="posso-orar-por-voce">Posso Orar por Você</option>
+          <option value="koynonia">Koynonia</option>
+        </select>
         <input [(ngModel)]="fotoForm.instagramUrl" name="fotoInstagramUrl" placeholder="URL do Instagram" />
         <input type="file" accept="image/*" name="fotoFile" (change)="onFotoFileChange($event)" [required]="!editingFotoId" />
         <small class="hint" *ngIf="editingFotoId">No modo ediçao, anexe imagem somente se quiser trocar o arquivo.</small>
@@ -29,6 +34,13 @@
           <img class="thumb" [src]="foto.imagemUrl" [alt]="foto.titulo" />
           <div class="item-content">
             <strong>{{ foto.titulo }}</strong>
+            <span>
+              {{ foto.ministerio === 'geral'
+                ? 'Geral'
+                : foto.ministerio === 'koynonia'
+                  ? 'Koynonia'
+                  : 'Posso Orar por Você' }}
+            </span>
             <span *ngIf="foto.instagramUrl">{{ foto.instagramUrl }}</span>
           </div>
           <div class="row-actions">

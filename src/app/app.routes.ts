@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { KoynoniaComponent } from './pages/koynonia/koynonia.component';
 import { PossoOrarPorVoceComponent } from './pages/posso-orar-por-voce/posso-orar-por-voce.component';
 import { PedidosComponent } from './pages/pedidos/pedidos.component';
 import { FotosComponent } from './pages/fotos/fotos.component';
@@ -14,10 +15,25 @@ import { adminRedirectGuard } from './guards/admin-redirect.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'koynonia', component: KoynoniaComponent },
   { path: 'posso-orar-por-voce', component: PossoOrarPorVoceComponent },
   { path: 'pedido-de-oracao', component: PedidosComponent },
   { path: 'pedidos', redirectTo: 'pedido-de-oracao', pathMatch: 'full' },
-  { path: 'fotos', component: FotosComponent },
+  {
+    path: 'posso-orar-por-voce/fotos',
+    component: FotosComponent,
+    data: { ministerio: 'posso-orar-por-voce', ministerioNome: 'Posso Orar por Você' }
+  },
+  {
+    path: 'koynonia/fotos',
+    component: FotosComponent,
+    data: { ministerio: 'koynonia', ministerioNome: 'Koynonia' }
+  },
+  {
+    path: 'fotos',
+    component: FotosComponent,
+    data: { ministerio: 'geral', ministerioNome: 'Geral' }
+  },
   { path: 'bio', component: BioComponent },
   { path: 'contato', component: ContatoComponent },
   { path: 'admin', canActivate: [adminRedirectGuard], pathMatch: 'full', children: [] },

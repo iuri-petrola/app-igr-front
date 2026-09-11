@@ -30,14 +30,9 @@
 .brand-mark {
   width: 42px;
   height: 42px;
-  display: grid;
-  place-items: center;
+  display: block;
+  object-fit: cover;
   border-radius: 50% 50% 46% 54%;
-  color: #fff;
-  background: #145b4a;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.08rem;
   box-shadow: 0 8px 22px rgba(20, 91, 74, 0.22);
 }
 

@@ -9,8 +9,10 @@ export type FotoItem = {
   dataUpload: string;
   imagemUrl: string;
   instagramUrl: string | null;
+  ministerio: Ministerio;
 };
 
+export type Ministerio = 'geral' | 'posso-orar-por-voce' | 'koynonia';
 
 export type PalavraDoDiaItem = {
   texto: string;
@@ -51,23 +53,31 @@ export class MediaApiService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getFotos(): Observable<FotoItem[]> {
-    return this.http.get<FotoItem[]>(`${this.baseUrl}/fotos`);
+  getFotos(ministerio?: Ministerio): Observable<FotoItem[]> {
+    const url = ministerio
+      ? `${this.baseUrl}/fotos?ministerio=${encodeURIComponent(ministerio)}`
+      : `${this.baseUrl}/fotos`;
+    return this.http.get<FotoItem[]>(url);
   }
 
 
-  createFoto(payload: { titulo: string; instagramUrl: string; image: File }): Observable<FotoItem> {
+  createFoto(payload: { titulo: string; instagramUrl: string; ministerio: Ministerio; image: File }): Observable<FotoItem> {
     const formData = new FormData();
     formData.append('titulo', payload.titulo);
     formData.append('instagramUrl', payload.instagramUrl);
+    formData.append('ministerio', payload.ministerio);
     formData.append('image', payload.image);
     return this.http.post<FotoItem>(`${this.baseUrl}/fotos`, formData);
   }
 
-  updateFoto(id: number, payload: { titulo: string; instagramUrl: string; image?: File | null }): Observable<FotoItem> {
+  updateFoto(
+    id: number,
+    payload: { titulo: string; instagramUrl: string; ministerio: Ministerio; image?: File | null }
+  ): Observable<FotoItem> {
     const formData = new FormData();
     formData.append('titulo', payload.titulo);
     formData.append('instagramUrl', payload.instagramUrl);
+    formData.append('ministerio', payload.ministerio);
     if (payload.image) {
       formData.append('image', payload.image);
     }

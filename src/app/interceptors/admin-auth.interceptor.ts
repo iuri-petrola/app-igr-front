@@ -32,7 +32,9 @@ function isAdminProtectedRequest(url: string, method: string): boolean {
   const adminApiBaseUrl = `${environment.apiBaseUrl}/admin`;
   const isAdminApiCall = url.startsWith(adminApiBaseUrl) || url.includes('/api/admin');
   const isLoginRequest = url.endsWith('/admin/login');
+  const fotosApiBaseUrl = `${environment.apiBaseUrl}/fotos`;
+  const isFotosWriteRequest = url.startsWith(fotosApiBaseUrl) && method !== 'GET';
 
-  // Envia bearer para toda rota administrativa, exceto login.
-  return isAdminApiCall && !isLoginRequest;
+  // A consulta das fotos é pública, mas criar, editar e excluir exigem autenticação.
+  return (isAdminApiCall && !isLoginRequest) || isFotosWriteRequest;
 }

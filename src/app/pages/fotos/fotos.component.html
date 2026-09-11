@@ -1,7 +1,7 @@
 <section class="page">
   <div class="page-header">
-    <h1>Fotos/Videos</h1>
-    <p class="lead">Galeria de imagens com links para o Instagram.</p>
+    <h1>Fotos/Vídeos</h1>
+    <p class="lead">{{ descricaoGaleria }}</p>
   </div>
 
   <div class="empty" *ngIf="loading">Carregando fotos...</div>
@@ -29,5 +29,5 @@
     </article>
   </div>
 
-  <div class="empty" *ngIf="!loading && !errorMessage && fotos.length === 0">Nenhuma midia disponivel.</div>
+  <div class="empty" *ngIf="!loading && !errorMessage && fotos.length === 0">Nenhuma mídia disponível.</div>
 </section>

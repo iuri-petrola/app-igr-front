@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { FotoItem, MediaApiService } from '../../services/media-api.service';
+import { FotoItem, MediaApiService, Ministerio } from '../../services/media-api.service';
 import { AdminAuthService } from '../../services/admin-auth.service';
 
 @Component({
@@ -17,7 +17,11 @@ export class AdminMidiasComponent implements OnInit {
 
   fotos: FotoItem[] = [];
 
-  fotoForm = { titulo: '', instagramUrl: '' };
+  fotoForm: { titulo: string; instagramUrl: string; ministerio: Ministerio } = {
+    titulo: '',
+    instagramUrl: '',
+    ministerio: 'geral'
+  };
   fotoFile: File | null = null;
 
   editingFotoId: number | null = null;
@@ -53,6 +57,7 @@ export class AdminMidiasComponent implements OnInit {
       this.mediaApiService.updateFoto(this.editingFotoId, {
         titulo: this.fotoForm.titulo.trim(),
         instagramUrl: this.fotoForm.instagramUrl.trim(),
+        ministerio: this.fotoForm.ministerio,
         image: this.fotoFile
       }).subscribe({
         next: () => {
@@ -73,11 +78,12 @@ export class AdminMidiasComponent implements OnInit {
     this.mediaApiService.createFoto({
       titulo: this.fotoForm.titulo.trim(),
       instagramUrl: this.fotoForm.instagramUrl.trim(),
+      ministerio: this.fotoForm.ministerio,
       image: this.fotoFile
     }).subscribe({
       next: () => {
         this.feedback = 'Foto criada com sucesso.';
-        this.fotoForm = { titulo: '', instagramUrl: '' };
+        this.resetFotoForm();
         this.fotoFile = null;
         this.loadFotos();
       },
@@ -89,7 +95,8 @@ export class AdminMidiasComponent implements OnInit {
     this.editingFotoId = item.id;
     this.fotoForm = {
       titulo: item.titulo,
-      instagramUrl: item.instagramUrl || ''
+      instagramUrl: item.instagramUrl || '',
+      ministerio: item.ministerio
     };
     this.fotoFile = null;
     this.scrollToFotoForm();
@@ -97,7 +104,7 @@ export class AdminMidiasComponent implements OnInit {
 
   cancelFotoEdit(): void {
     this.editingFotoId = null;
-    this.fotoForm = { titulo: '', instagramUrl: '' };
+    this.resetFotoForm();
     this.fotoFile = null;
   }
 
@@ -146,5 +153,13 @@ export class AdminMidiasComponent implements OnInit {
         behavior: 'smooth'
       });
     });
+  }
+
+  private resetFotoForm(): void {
+    this.fotoForm = {
+      titulo: '',
+      instagramUrl: '',
+      ministerio: 'geral'
+    };
   }
 }
