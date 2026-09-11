@@ -1,0 +1,27 @@
+<section class="page">
+  <h1>Pedidos de Oracão</h1>
+  <p class="lead">Envie seu pedido de oracao. Vamos salvar no sistema e abrir o WhatsApp para o envio.</p>
+
+  <form class="block form" (ngSubmit)="submit()">
+    <label>
+      <span>Nome</span>
+      <input [(ngModel)]="form.nome" name="nome" type="text" />
+    </label>
+
+    <label>
+      <span>Contato</span>
+      <input [(ngModel)]="form.contato" name="contato" type="text" placeholder="Telefone, email ou rede social" />
+    </label>
+
+    <label>
+      <span>Pedido</span>
+      <textarea [(ngModel)]="form.pedido" name="pedido" rows="6"></textarea>
+    </label>
+
+    <p class="feedback" *ngIf="feedback">{{ feedback }}</p>
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Enviando...' : 'Enviar pedido' }}
+    </button>
+  </form>
+</section>

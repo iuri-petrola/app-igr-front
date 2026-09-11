@@ -1,0 +1,34 @@
+<div class="app-shell">
+  <header class="site-header">
+    <a class="brand" routerLink="/" aria-label="Ir para a página inicial do App IGR">
+      <span class="brand-mark" aria-hidden="true">IGR</span>
+      <span class="brand-copy">
+        <strong>App IGR</strong>
+        <small>Igreja em comunidade</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Navegação principal">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Início</a>
+      <details #menuMinisterios class="menu-dropdown" routerLinkActive="active">
+        <summary>Ministérios <span aria-hidden="true">⌄</span></summary>
+        <div class="submenu">
+          <a routerLink="/posso-orar-por-voce" routerLinkActive="active" (click)="fecharMenuMinisterios()">
+            Posso Orar por Você
+          </a>
+        </div>
+      </details>
+      <a routerLink="/bio" routerLinkActive="active">Sobre nós</a>
+      <a routerLink="/contato" routerLinkActive="active">Contato</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="site-footer">
+    <strong>App IGR</strong>
+    <span>Uma igreja para viver a fé, o cuidado e a comunhão.</span>
+  </footer>
+</div>

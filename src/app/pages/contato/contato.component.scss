@@ -1,0 +1,72 @@
+.page {
+  padding: 24px 0;
+}
+
+.lead {
+  color: #2d4741;
+}
+
+.contact-status {
+  margin: 12px 0 0;
+  color: #2d4741;
+}
+
+.contact-status.error {
+  color: #a12c2c;
+}
+
+.cards {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid #cce3dc;
+  border-radius: 14px;
+  padding: 16px;
+  text-decoration: none;
+  color: #1f2d2a;
+  background: #f0fbf8;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+  color: #0b6e62;
+  margin-bottom: 6px;
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+}
+
+.icon.whatsapp {
+  background: #25d366;
+}
+
+.icon.instagram {
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 35%, #8134af 65%, #515bd4 100%);
+}
+
+.meta strong {
+  display: block;
+}

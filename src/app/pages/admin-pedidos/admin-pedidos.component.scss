@@ -1,0 +1,109 @@
+.page {
+  padding: 24px 0;
+}
+
+.page-header {
+  margin-bottom: 14px;
+}
+
+.page-header h1 {
+  margin-bottom: 4px;
+}
+
+.lead {
+  margin: 0;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.admin-nav a {
+  text-decoration: none;
+  color: #1f2d2a;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eaf4f1;
+}
+
+.admin-nav a.active {
+  background: #0b6e62;
+  color: #fff;
+}
+
+.secondary {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #dceae6;
+  color: #1f2d2a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.panel {
+  border: 1px solid #d6e6e1;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fbfefd;
+}
+
+.panel-feedback {
+  margin: 0 0 12px;
+  color: #45625b;
+}
+
+.panel-feedback.error {
+  color: #9f3a3a;
+  font-weight: 700;
+}
+
+.request-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.request-list li {
+  border: 1px solid #e1ece8;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+}
+
+.request-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.request-header span {
+  font-size: 0.82rem;
+  color: #45625b;
+  white-space: nowrap;
+}
+
+.request-contact,
+.request-text {
+  margin: 10px 0 0;
+  color: #1f2d2a;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 420px) {
+  .page {
+    padding: 16px 0;
+  }
+
+  .panel {
+    padding: 12px;
+  }
+}

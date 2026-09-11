@@ -1,0 +1,249 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+  gap: clamp(28px, 6vw, 72px);
+  align-items: center;
+  min-height: 570px;
+  padding: 70px 0;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  width: 320px;
+  height: 320px;
+  position: absolute;
+  top: 20px;
+  right: -12vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(218, 188, 110, 0.22), rgba(218, 188, 110, 0));
+  pointer-events: none;
+}
+
+.hero-content h1 {
+  max-width: 720px;
+  margin: 12px 0 18px;
+  color: #173d33;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.7rem, 5vw, 5rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #996f20;
+  margin: 0;
+}
+
+.lead {
+  max-width: 620px;
+  font-size: 1.12rem;
+  color: #47645c;
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid #145b4a;
+  color: #145b4a;
+  font-weight: 700;
+}
+
+.btn.primary {
+  background: #145b4a;
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(20, 91, 74, 0.2);
+}
+
+.verse-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px 8px 28px 8px;
+  background: linear-gradient(145deg, #174e40, #0d382f);
+  color: #fff;
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: 0 26px 65px rgba(17, 66, 54, 0.24);
+}
+
+.verse-card::after {
+  content: '“';
+  position: absolute;
+  right: 18px;
+  bottom: -55px;
+  color: rgba(255, 255, 255, 0.07);
+  font-family: Georgia, serif;
+  font-size: 13rem;
+}
+
+.card-label {
+  color: #efd798;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16rem;
+  text-transform: uppercase;
+}
+
+blockquote {
+  margin: 28px 0 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  line-height: 1.45;
+}
+
+.verse-ref {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #efd798;
+}
+
+.welcome-section {
+  padding: 72px 0 84px;
+}
+
+.section-heading {
+  max-width: 720px;
+  margin-bottom: 34px;
+}
+
+.section-heading h2,
+.connection-section h2 {
+  margin: 10px 0 14px;
+  color: #173d33;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.section-heading > p:last-child,
+.connection-section p {
+  color: #557068;
+  line-height: 1.7;
+}
+
+.church-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.church-card {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid #d8e5de;
+  border-radius: 6px 24px 6px 24px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 15px 38px rgba(34, 72, 61, 0.07);
+}
+
+.church-card.community {
+  background: #edf5ef;
+}
+
+.church-card.prayer {
+  background: #f5f0e4;
+  border-color: #e8ddc2;
+}
+
+.card-number {
+  color: #a5823d;
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+}
+
+.church-card h3 {
+  margin: 42px 0 12px;
+  color: #173d33;
+  font-family: Georgia, serif;
+  font-size: 1.45rem;
+}
+
+.church-card p {
+  margin: 0 0 24px;
+  color: #557068;
+  line-height: 1.6;
+}
+
+.church-card a {
+  margin-top: auto;
+  color: #145b4a;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.connection-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  margin: 0 0 72px;
+  padding: 44px;
+  border-radius: 28px 8px 28px 8px;
+  background: #dfece3;
+}
+
+.connection-section > div {
+  max-width: 680px;
+}
+
+.connection-section .btn.light {
+  flex-shrink: 0;
+  background: #fff;
+}
+
+@media (max-width: 820px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 48px 0;
+  }
+
+  .church-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .church-card {
+    min-height: 230px;
+  }
+}
+
+@media (max-width: 580px) {
+  .hero-content h1 {
+    font-size: clamp(2.45rem, 13vw, 3.6rem);
+  }
+
+  .welcome-section {
+    padding: 52px 0 60px;
+  }
+
+  .connection-section {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 28px;
+  }
+
+  .connection-section .btn.light {
+    align-self: flex-start;
+  }
+}

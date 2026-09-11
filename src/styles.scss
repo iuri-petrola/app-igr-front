@@ -1,0 +1,21 @@
+:root {
+  color-scheme: light;
+  --color-ink: #18312b;
+  --color-green: #145b4a;
+  --color-gold: #a5823d;
+  --color-paper: #fbfcf7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+  color: var(--color-ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(209, 229, 216, 0.72), transparent 28%),
+    radial-gradient(circle at 88% 4%, rgba(238, 220, 169, 0.42), transparent 24%),
+    var(--color-paper);
+}

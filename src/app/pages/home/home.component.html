@@ -1,0 +1,63 @@
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">Fé que aproxima · Comunidade que acolhe</p>
+    <h1>Uma igreja para caminhar com você.</h1>
+    <p class="lead">O App IGR reúne nossa comunidade em um só lugar para fortalecer a fé, criar conexões e compartilhar cuidado.</p>
+    <div class="actions">
+      <a class="btn primary" routerLink="/contato">Quero participar</a>
+      <a class="btn ghost" routerLink="/bio">Conheça a igreja</a>
+    </div>
+  </div>
+  <aside class="verse-card">
+    <span class="card-label">Palavra do dia</span>
+    <ng-container *ngIf="palavraDoDia; else loadingVerse">
+      <blockquote>“{{ palavraDoDia.texto }}”</blockquote>
+      <span class="verse-ref">
+        {{ palavraDoDia.livro }} {{ palavraDoDia.capitulo }}:{{ palavraDoDia.versiculo }}
+      </span>
+    </ng-container>
+    <ng-template #loadingVerse>
+      <p>Carregando versículo...</p>
+    </ng-template>
+  </aside>
+</section>
+
+<section class="welcome-section">
+  <div class="section-heading">
+    <p class="eyebrow">Nossa casa</p>
+    <h2>Há um lugar para você aqui</h2>
+    <p>Queremos ser uma comunidade presente em cada fase da vida, celebrando juntos, aprendendo a Palavra e cuidando uns dos outros.</p>
+  </div>
+
+  <div class="church-grid">
+    <article class="church-card celebration">
+      <span class="card-number">01</span>
+      <h3>Cultos e celebrações</h3>
+      <p>Momentos para adorar, ouvir a Palavra e renovar a esperança em comunidade.</p>
+      <a routerLink="/contato">Conhecer a programação <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="church-card community">
+      <span class="card-number">02</span>
+      <h3>Comunhão e crescimento</h3>
+      <p>Conexões que fortalecem a caminhada cristã por meio de encontros, estudos e serviço.</p>
+      <a routerLink="/bio">Conhecer nossa missão <span aria-hidden="true">→</span></a>
+    </article>
+
+    <article class="church-card prayer">
+      <span class="card-number">03</span>
+      <h3>Cuidado e oração</h3>
+      <p>Compartilhe seu pedido com confiança. Nosso ministério está pronto para orar com você.</p>
+      <a routerLink="/posso-orar-por-voce">Posso Orar por Você <span aria-hidden="true">→</span></a>
+    </article>
+  </div>
+</section>
+
+<section class="connection-section">
+  <div>
+    <p class="eyebrow">Vida em comunidade</p>
+    <h2>Veja o que Deus tem feito entre nós</h2>
+    <p>Nossa galeria registra encontros, celebrações e histórias construídas em comunhão.</p>
+  </div>
+  <a class="btn light" routerLink="/fotos">Visitar galeria</a>
+</section>

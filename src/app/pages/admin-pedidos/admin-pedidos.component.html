@@ -1,0 +1,28 @@
+<section class="page">
+  <div class="page-header">
+    <h1>Pagina do Administrador</h1>
+    <p class="lead">Nessa pagina é possivel acompanhar os pedidos recebidos.</p>
+    <nav class="admin-nav">
+      <a routerLink="/admin/midias" routerLinkActive="active">Midias</a>
+      <a routerLink="/admin/pedidos" routerLinkActive="active">Pedidos</a>
+    </nav>
+    <button type="button" class="secondary" (click)="logout()">Sair</button>
+  </div>
+
+  <article class="panel">
+    <h2>Pedidos de oração</h2>
+    <p class="panel-feedback error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="panel-feedback" *ngIf="!errorMessage && pedidos.length === 0">Nenhum pedido recebido ainda.</p>
+
+    <ul class="request-list" *ngIf="pedidos.length > 0">
+      <li *ngFor="let pedido of pedidos">
+        <div class="request-header">
+          <strong>{{ pedido.nome }}</strong>
+          <span>{{ pedido.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <p class="request-contact" *ngIf="pedido.contato">Contato: {{ pedido.contato }}</p>
+        <p class="request-text">{{ pedido.pedido }}</p>
+      </li>
+    </ul>
+  </article>
+</section>

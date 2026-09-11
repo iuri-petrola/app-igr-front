@@ -1,0 +1,15 @@
+<section class="page">
+  <article class="card">
+    <h1>Login Admin</h1>
+    <p class="lead">Acesso restrito para gerenciamento de midias.</p>
+
+    <form (ngSubmit)="submit()" class="form">
+      <input [(ngModel)]="username" name="username" placeholder="Usuario" required />
+      <input [(ngModel)]="password" name="password" type="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+    </form>
+
+    <p class="info" *ngIf="infoMessage">{{ infoMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+  </article>
+</section>

@@ -1,0 +1,33 @@
+<section class="page">
+  <div class="page-header">
+    <h1>Fotos/Videos</h1>
+    <p class="lead">Galeria de imagens com links para o Instagram.</p>
+  </div>
+
+  <div class="empty" *ngIf="loading">Carregando fotos...</div>
+
+  <div class="empty" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
+
+  <div class="grid" *ngIf="!loading && !errorMessage && fotos.length > 0">
+    <article class="card" *ngFor="let item of fotos">
+      <img class="thumb" [src]="item.imagemUrl" [alt]="item.titulo" />
+      <div class="card-body">
+        <div class="title-row">
+          <h3>{{ item.titulo }}</h3>
+          <span class="date">{{ item.dataUpload | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <a
+          class="instagram-link"
+          *ngIf="item.instagramUrl"
+          [href]="item.instagramUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Ver no Instagram
+        </a>
+      </div>
+    </article>
+  </div>
+
+  <div class="empty" *ngIf="!loading && !errorMessage && fotos.length === 0">Nenhuma midia disponivel.</div>
+</section>

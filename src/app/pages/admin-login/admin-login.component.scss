@@ -1,0 +1,45 @@
+.page {
+  min-height: 65vh;
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  width: min(420px, 92vw);
+  border: 1px solid #d6e6e1;
+  border-radius: 12px;
+  padding: 20px;
+  background: #fbfefd;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+input {
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #c8ded7;
+  padding: 0 12px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #0b6e62;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.error {
+  color: #9f3a3a;
+  font-weight: 700;
+}
+
+.info {
+  color: #0b6e62;
+  font-weight: 700;
+}

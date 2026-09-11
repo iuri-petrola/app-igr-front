@@ -1,0 +1,30 @@
+<section class="page">
+  <h1>Contato</h1>
+  <p class="lead">Nos chame para compartilhar seu pedido.</p>
+  <p class="contact-status" *ngIf="carregandoContato">Carregando contato...</p>
+  <p class="contact-status error" *ngIf="erroContato">{{ erroContato }}</p>
+  <div class="cards">
+    <a class="card" *ngIf="whatsAppUrl" [href]="whatsAppUrl" target="_blank" rel="noopener">
+      <span class="icon whatsapp" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img">
+          <path d="M20.5 3.5A11 11 0 0 0 3.2 17.6L2 22l4.6-1.2A11 11 0 1 0 20.5 3.5zm-8.5 17a9 9 0 0 1-4.6-1.2l-.3-.2-2.7.7.7-2.6-.2-.3A9 9 0 1 1 12 20.5zm5-6.7c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.2-.7.9-.8 1-.1.1-.3.2-.6.1-1.6-.6-2.7-1.8-3.3-3.1-.1-.3 0-.5.1-.6l.6-.7c.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.5 0 1.5 1 2.9 1.2 3.1.2.2 2 3 4.8 4.2.7.3 1.2.4 1.6.5.7.2 1.4.1 1.9.1.6-.1 1.7-.7 1.9-1.3.2-.6.2-1.1.1-1.3-.1-.1-.3-.2-.6-.3z"/>
+        </svg>
+      </span>
+      <div class="meta">
+        <span class="tag">WhatsApp</span>
+        <strong>Enviar mensagem</strong>
+      </div>
+    </a>
+    <a class="card" href="https://www.instagram.com/gileadecidade/" target="_blank" rel="noopener">
+      <span class="icon instagram" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.2-2.8a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+        </svg>
+      </span>
+      <div class="meta">
+        <span class="tag">Instagram</span>
+        <strong>Visitar perfil</strong>
+      </div>
+    </a>
+  </div>
+</section>

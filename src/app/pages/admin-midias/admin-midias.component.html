@@ -1,0 +1,42 @@
+<section class="page">
+  <div class="page-header">
+    <h1>Pagina do Administrador</h1>
+    <p class="lead">Nessa pagina é possivel criar, editar e excluir midias.</p>
+    <nav class="admin-nav">
+      <a routerLink="/admin/midias" routerLinkActive="active">Midias</a>
+      <a routerLink="/admin/pedidos" routerLinkActive="active">Pedidos</a>
+    </nav>
+    <p class="feedback" *ngIf="feedback">{{ feedback }}</p>
+    <button type="button" class="secondary" (click)="logout()">Sair</button>
+  </div>
+
+  <div class="admin-grid">
+    <article class="panel">
+      <h2>Galeria</h2>
+      <form #fotoFormElement (ngSubmit)="saveFoto()" class="form">
+        <input [(ngModel)]="fotoForm.titulo" name="fotoTitulo" placeholder="Nome" required />
+        <input [(ngModel)]="fotoForm.instagramUrl" name="fotoInstagramUrl" placeholder="URL do Instagram" />
+        <input type="file" accept="image/*" name="fotoFile" (change)="onFotoFileChange($event)" [required]="!editingFotoId" />
+        <small class="hint" *ngIf="editingFotoId">No modo ediçao, anexe imagem somente se quiser trocar o arquivo.</small>
+        <div class="actions">
+          <button type="submit">{{ editingFotoId ? 'Atualizar' : 'Criar' }}</button>
+          <button type="button" class="secondary" *ngIf="editingFotoId" (click)="cancelFotoEdit()">Cancelar</button>
+        </div>
+      </form>
+
+      <ul class="list">
+        <li *ngFor="let foto of fotos">
+          <img class="thumb" [src]="foto.imagemUrl" [alt]="foto.titulo" />
+          <div class="item-content">
+            <strong>{{ foto.titulo }}</strong>
+            <span *ngIf="foto.instagramUrl">{{ foto.instagramUrl }}</span>
+          </div>
+          <div class="row-actions">
+            <button type="button" class="secondary" (click)="editFoto(foto)">Editar</button>
+            <button type="button" class="danger" (click)="removeFoto(foto.id)">Excluir</button>
+          </div>
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>
