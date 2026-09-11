@@ -27,7 +27,7 @@ export class FotosComponent implements OnInit {
     this.ministerioNome = this.route.snapshot.data['ministerioNome'] as string;
     this.descricaoGaleria = ministerio === 'geral'
       ? 'Galeria de imagens'
-      : `Galeria do ministério ${this.ministerioNome}.`;
+      : `Midias ${this.ministerioNome}.`;
 
     this.mediaApiService.getFotos(ministerio).subscribe({
       next: (data) => {
