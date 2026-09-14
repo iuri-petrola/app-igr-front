@@ -126,9 +126,9 @@ button.danger {
 .thumb {
   width: 96px;
   height: 96px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
-  background: #e6f2ee;
+  background: #eef5f2;
   display: block;
 }
 
