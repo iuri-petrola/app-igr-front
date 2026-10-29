@@ -4,11 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { MediaApiService, FotoItem, Ministerio } from '../../services/media-api.service';
 
 @Component({
-  selector: 'app-fotos',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './fotos.component.html',
-  styleUrls: ['./fotos.component.scss']
+    selector: 'app-fotos',
+    imports: [CommonModule],
+    templateUrl: './fotos.component.html',
+    styleUrls: ['./fotos.component.scss']
 })
 export class FotosComponent implements OnInit {
   fotos: FotoItem[] = [];

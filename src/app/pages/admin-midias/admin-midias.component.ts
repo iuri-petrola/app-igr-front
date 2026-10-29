@@ -6,11 +6,10 @@ import { FotoItem, MediaApiService, Ministerio } from '../../services/media-api.
 import { AdminAuthService } from '../../services/admin-auth.service';
 
 @Component({
-  selector: 'app-admin-midias',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
-  templateUrl: './admin-midias.component.html',
-  styleUrls: ['./admin-midias.component.scss']
+    selector: 'app-admin-midias',
+    imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+    templateUrl: './admin-midias.component.html',
+    styleUrls: ['./admin-midias.component.scss']
 })
 export class AdminMidiasComponent implements OnInit {
   @ViewChild('fotoFormElement') fotoFormElement?: ElementRef<HTMLElement>;

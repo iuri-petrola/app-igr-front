@@ -5,11 +5,10 @@ import { AdminAuthService } from '../../services/admin-auth.service';
 import { MediaApiService, PedidoAdminItem } from '../../services/media-api.service';
 
 @Component({
-  selector: 'app-admin-pedidos',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './admin-pedidos.component.html',
-  styleUrls: ['./admin-pedidos.component.scss']
+    selector: 'app-admin-pedidos',
+    imports: [CommonModule, RouterLink, RouterLinkActive],
+    templateUrl: './admin-pedidos.component.html',
+    styleUrls: ['./admin-pedidos.component.scss']
 })
 export class AdminPedidosComponent implements OnInit {
   pedidos: PedidoAdminItem[] = [];

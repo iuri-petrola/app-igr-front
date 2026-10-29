@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://app.igr.com/api'
+  apiBaseUrl: 'https://app-igr.duckdns.org/api'
 };

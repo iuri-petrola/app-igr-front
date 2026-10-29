@@ -5,11 +5,10 @@ import { Router } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
 
 @Component({
-  selector: 'app-admin-login',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './admin-login.component.html',
-  styleUrls: ['./admin-login.component.scss']
+    selector: 'app-admin-login',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './admin-login.component.html',
+    styleUrls: ['./admin-login.component.scss']
 })
 export class AdminLoginComponent implements OnInit {
   username = '';

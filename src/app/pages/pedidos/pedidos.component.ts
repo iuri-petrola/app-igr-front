@@ -4,11 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { MediaApiService } from '../../services/media-api.service';
 
 @Component({
-  selector: 'app-pedidos',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './pedidos.component.html',
-  styleUrls: ['./pedidos.component.scss']
+    selector: 'app-pedidos',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './pedidos.component.html',
+    styleUrls: ['./pedidos.component.scss']
 })
 export class PedidosComponent {
   form = {

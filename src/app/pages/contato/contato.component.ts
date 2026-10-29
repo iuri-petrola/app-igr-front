@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MediaApiService } from '../../services/media-api.service';
 
 @Component({
-  selector: 'app-contato',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './contato.component.html',
-  styleUrls: ['./contato.component.scss']
+    selector: 'app-contato',
+    imports: [CommonModule],
+    templateUrl: './contato.component.html',
+    styleUrls: ['./contato.component.scss']
 })
 export class ContatoComponent implements OnInit {
   whatsAppUrl = '';
