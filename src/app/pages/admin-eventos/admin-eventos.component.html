@@ -1,0 +1,59 @@
+<section class="page">
+  <div class="page-header">
+    <h1>Página do Administrador</h1>
+    <p class="lead">Cadastre os participantes e publique eventos com inscrição.</p>
+    <nav class="admin-nav">
+      <a routerLink="/admin/midias" routerLinkActive="active">Mídias</a>
+      <a routerLink="/admin/pedidos" routerLinkActive="active">Pedidos</a>
+      <a routerLink="/admin/eventos" routerLinkActive="active">Eventos e usuários</a>
+    </nav>
+    <button type="button" class="secondary" (click)="logout()">Sair</button>
+  </div>
+
+  <div class="admin-grid">
+    <article class="panel">
+      <h2>Novo evento</h2>
+      <form class="form" (ngSubmit)="salvarEvento()">
+        <label>Título <input [(ngModel)]="eventoForm.titulo" name="titulo" required /></label>
+        <label>Descrição <textarea [(ngModel)]="eventoForm.descricao" name="descricao" rows="3"></textarea></label>
+        <label>Local <input [(ngModel)]="eventoForm.local" name="local" /></label>
+        <label>Data do evento <input [(ngModel)]="eventoForm.dataEvento" name="dataEvento" type="datetime-local" required /></label>
+        <label>Inscrições até <input [(ngModel)]="eventoForm.prazoInscricao" name="prazoInscricao" type="datetime-local" /></label>
+        <button type="submit">Criar evento</button>
+      </form>
+      <p class="feedback" [class.error]="erroEvento" *ngIf="feedbackEvento">{{ feedbackEvento }}</p>
+
+      <ul class="list">
+        <li *ngFor="let evento of eventos">
+          <div>
+            <strong>{{ evento.titulo }}</strong>
+            <span>{{ evento.dataEvento | date:'dd/MM/yyyy HH:mm' }}</span>
+            <span *ngIf="evento.local">{{ evento.local }}</span>
+          </div>
+          <b>{{ evento._count?.inscricoes || 0 }} inscrições</b>
+        </li>
+      </ul>
+    </article>
+
+    <article class="panel">
+      <h2>Novo usuário</h2>
+      <form class="form" (ngSubmit)="salvarUsuario()">
+        <label>Nome <input [(ngModel)]="usuarioForm.nome" name="nome" required /></label>
+        <label>Celular com DDD <input [(ngModel)]="usuarioForm.celular" name="celular" type="tel" required /></label>
+        <label>E-mail <input [(ngModel)]="usuarioForm.email" name="email" type="email" /></label>
+        <button type="submit">Cadastrar usuário</button>
+      </form>
+      <p class="feedback" [class.error]="erroUsuario" *ngIf="feedbackUsuario">{{ feedbackUsuario }}</p>
+
+      <ul class="list users">
+        <li *ngFor="let usuario of usuarios">
+          <div>
+            <strong>{{ usuario.nome }}</strong>
+            <span>{{ usuario.celular }}</span>
+            <span *ngIf="usuario.email">{{ usuario.email }}</span>
+          </div>
+        </li>
+      </ul>
+    </article>
+  </div>
+</section>

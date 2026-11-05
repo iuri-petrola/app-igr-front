@@ -10,6 +10,9 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AdminMidiasComponent } from './pages/admin-midias/admin-midias.component';
 import { AdminPedidosComponent } from './pages/admin-pedidos/admin-pedidos.component';
 import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
+import { AdminEventosComponent } from './pages/admin-eventos/admin-eventos.component';
+import { EventosComponent } from './pages/eventos/eventos.component';
+import { InscricaoEventoComponent } from './pages/inscricao-evento/inscricao-evento.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { adminRedirectGuard } from './guards/admin-redirect.guard';
 
@@ -36,9 +39,12 @@ export const routes: Routes = [
   },
   { path: 'bio', component: BioComponent },
   { path: 'contato', component: ContatoComponent },
+  { path: 'eventos', component: EventosComponent },
+  { path: 'eventos/:id/inscricao', component: InscricaoEventoComponent },
   { path: 'admin', canActivate: [adminRedirectGuard], pathMatch: 'full', children: [] },
   { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/midias', component: AdminMidiasComponent, canActivate: [adminAuthGuard] },
   { path: 'admin/pedidos', component: AdminPedidosComponent, canActivate: [adminAuthGuard] },
+  { path: 'admin/eventos', component: AdminEventosComponent, canActivate: [adminAuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];

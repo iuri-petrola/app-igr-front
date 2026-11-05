@@ -1,0 +1,109 @@
+.events-page {
+  padding: 54px 0 82px;
+}
+
+.events-header {
+  max-width: 720px;
+  margin-bottom: 34px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #996f20;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16rem;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 10px 0 14px;
+  color: #173d33;
+  font-family: Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4.8rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.events-header > p:last-child,
+.status {
+  color: #506b63;
+  line-height: 1.65;
+}
+
+.status.error {
+  color: #9f3a3a;
+}
+
+.events-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  padding: 22px;
+  border: 1px solid #d5e5de;
+  border-radius: 8px 28px 8px 28px;
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.event-date {
+  display: grid;
+  place-items: center;
+  min-height: 82px;
+  border-radius: 6px 22px 6px 22px;
+  color: #fff;
+  background: #145b4a;
+}
+
+.event-date strong {
+  align-self: end;
+  font-family: Georgia, serif;
+  font-size: 2rem;
+}
+
+.event-date span {
+  align-self: start;
+  text-transform: uppercase;
+}
+
+.event-copy h2 {
+  margin: 0 0 8px;
+  color: #173d33;
+  font-family: Georgia, serif;
+}
+
+.event-copy p {
+  margin: 0 0 9px;
+  color: #506b63;
+}
+
+.event-copy span {
+  display: block;
+  color: #45625b;
+  font-size: 0.88rem;
+}
+
+.event-card a {
+  padding: 11px 17px;
+  border-radius: 999px;
+  color: #fff;
+  background: #996f20;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 680px) {
+  .event-card {
+    grid-template-columns: 70px 1fr;
+  }
+
+  .event-card a {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+}

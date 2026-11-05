@@ -1,0 +1,27 @@
+<section class="events-page">
+  <header class="events-header">
+    <p class="eyebrow">Participe da comunidade</p>
+    <h1>Próximos eventos</h1>
+    <p>Escolha um evento e confirme sua participação usando apenas seu celular cadastrado.</p>
+  </header>
+
+  <p class="status" *ngIf="carregando">Carregando eventos...</p>
+  <p class="status error" *ngIf="erro">{{ erro }}</p>
+  <p class="status" *ngIf="!carregando && !erro && eventos.length === 0">Nenhum evento com inscrições abertas.</p>
+
+  <div class="events-grid" *ngIf="eventos.length > 0">
+    <article class="event-card" *ngFor="let evento of eventos">
+      <div class="event-date">
+        <strong>{{ evento.dataEvento | date:'dd' }}</strong>
+        <span>{{ evento.dataEvento | date:'MMM' }}</span>
+      </div>
+      <div class="event-copy">
+        <h2>{{ evento.titulo }}</h2>
+        <p *ngIf="evento.descricao">{{ evento.descricao }}</p>
+        <span>{{ evento.dataEvento | date:'dd/MM/yyyy HH:mm' }}</span>
+        <span *ngIf="evento.local">{{ evento.local }}</span>
+      </div>
+      <a [routerLink]="['/eventos', evento.id, 'inscricao']">Inscrever-se</a>
+    </article>
+  </div>
+</section>

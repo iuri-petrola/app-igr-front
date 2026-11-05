@@ -1,0 +1,37 @@
+<section class="registration-page">
+  <a class="back-link" routerLink="/eventos">← Voltar para eventos</a>
+  <p class="status" *ngIf="carregando">Carregando evento...</p>
+
+  <div class="registration-layout" *ngIf="evento">
+    <div class="event-info">
+      <p class="eyebrow">Inscrição</p>
+      <h1>{{ evento.titulo }}</h1>
+      <p *ngIf="evento.descricao">{{ evento.descricao }}</p>
+      <strong>{{ evento.dataEvento | date:'dd/MM/yyyy HH:mm' }}</strong>
+      <span *ngIf="evento.local">{{ evento.local }}</span>
+    </div>
+
+    <form class="registration-form" (ngSubmit)="realizarInscricao()">
+      <h2>Confirme sua participação</h2>
+      <p>Digite o mesmo celular usado no cadastro da igreja. Seus outros dados serão preenchidos automaticamente.</p>
+      <label for="celular">Celular com DDD</label>
+      <input
+        id="celular"
+        name="celular"
+        type="tel"
+        inputmode="numeric"
+        autocomplete="tel"
+        [(ngModel)]="celular"
+        placeholder="(85) 99999-9999"
+        required
+      />
+      <button type="submit" [disabled]="enviando || !!mensagem">
+        {{ enviando ? 'Confirmando...' : 'Confirmar inscrição' }}
+      </button>
+      <p class="feedback success" *ngIf="mensagem">{{ mensagem }}</p>
+      <p class="feedback error" *ngIf="erro">{{ erro }}</p>
+    </form>
+  </div>
+
+  <p class="status error" *ngIf="!carregando && erro && !evento">{{ erro }}</p>
+</section>
