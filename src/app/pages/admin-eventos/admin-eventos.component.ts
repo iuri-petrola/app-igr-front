@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
-import { EventoApiService, EventoItem, UsuarioItem } from '../../services/evento-api.service';
+import { ConviteGerado, EventoApiService, EventoItem, UsuarioItem } from '../../services/evento-api.service';
 
 @Component({
   selector: 'app-admin-eventos',
@@ -17,10 +17,14 @@ export class AdminEventosComponent implements OnInit {
   usuarios: UsuarioItem[] = [];
   eventoForm = { titulo: '', descricao: '', local: '', dataEvento: '', prazoInscricao: '' };
   usuarioForm = { nome: '', celular: '', email: '' };
+  conviteForm = { eventoId: 0, usuarioId: 0 };
+  conviteGerado: ConviteGerado | null = null;
   feedbackEvento = '';
   feedbackUsuario = '';
   erroEvento = false;
   erroUsuario = false;
+  feedbackConvite = '';
+  erroConvite = false;
 
   constructor(
     private readonly eventoApi: EventoApiService,
@@ -81,6 +85,54 @@ export class AdminEventosComponent implements OnInit {
     });
   }
 
+  gerarConvite(): void {
+    if (!this.conviteForm.eventoId || !this.conviteForm.usuarioId) {
+      this.mostrarFeedbackConvite('Selecione o evento e o usuário.', true);
+      return;
+    }
+
+    this.conviteGerado = null;
+    this.eventoApi.createConvite(this.conviteForm.eventoId, this.conviteForm.usuarioId).subscribe({
+      next: (convite) => {
+        this.conviteGerado = convite;
+        this.mostrarFeedbackConvite('Link individual gerado com sucesso.', false);
+      },
+      error: (response: HttpErrorResponse) => {
+        this.mostrarFeedbackConvite(response.error?.error || 'Erro ao gerar convite.', true);
+      }
+    });
+  }
+
+  async copiarConvite(): Promise<void> {
+    if (!this.conviteGerado) {
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(this.conviteGerado.conviteUrl);
+      this.mostrarFeedbackConvite('Link copiado.', false);
+    } catch (_error) {
+      this.mostrarFeedbackConvite('Não foi possível copiar. Selecione o link manualmente.', true);
+    }
+  }
+
+  enviarConviteWhatsApp(): void {
+    if (!this.conviteGerado) {
+      return;
+    }
+
+    const celular = this.conviteGerado.usuario.celular.replace(/\D/g, '');
+    const numero = celular.startsWith('55') ? celular : `55${celular}`;
+    const mensagem = [
+      `Olá, ${this.conviteGerado.usuario.nome}!`,
+      `Você foi convidado para o evento ${this.conviteGerado.evento.titulo}.`,
+      'Abra o link e confirme sua inscrição:',
+      this.conviteGerado.conviteUrl
+    ].join('\n');
+
+    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
+  }
+
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/admin/login']);
@@ -108,5 +160,10 @@ export class AdminEventosComponent implements OnInit {
   private mostrarFeedbackUsuario(mensagem: string, erro: boolean): void {
     this.feedbackUsuario = mensagem;
     this.erroUsuario = erro;
+  }
+
+  private mostrarFeedbackConvite(mensagem: string, erro: boolean): void {
+    this.feedbackConvite = mensagem;
+    this.erroConvite = erro;
   }
 }

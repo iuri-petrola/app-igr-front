@@ -11,6 +11,38 @@
   </div>
 
   <div class="admin-grid">
+    <article class="panel invite-panel">
+      <h2>Gerar convite individual</h2>
+      <p>Escolha o evento e o usuário. O link identificará a pessoa sem solicitar o celular.</p>
+      <form class="invite-form" (ngSubmit)="gerarConvite()">
+        <label>
+          Evento
+          <select [(ngModel)]="conviteForm.eventoId" name="conviteEvento" required>
+            <option [ngValue]="0">Selecione</option>
+            <option *ngFor="let evento of eventos" [ngValue]="evento.id">{{ evento.titulo }}</option>
+          </select>
+        </label>
+        <label>
+          Usuário
+          <select [(ngModel)]="conviteForm.usuarioId" name="conviteUsuario" required>
+            <option [ngValue]="0">Selecione</option>
+            <option *ngFor="let usuario of usuarios" [ngValue]="usuario.id">{{ usuario.nome }} — {{ usuario.celular }}</option>
+          </select>
+        </label>
+        <button type="submit">Gerar link</button>
+      </form>
+      <p class="feedback" [class.error]="erroConvite" *ngIf="feedbackConvite">{{ feedbackConvite }}</p>
+
+      <div class="invite-result" *ngIf="conviteGerado">
+        <input class="invite-link" [value]="conviteGerado.conviteUrl" readonly aria-label="Link do convite" />
+        <div class="invite-actions">
+          <button type="button" class="secondary" (click)="copiarConvite()">Copiar link</button>
+          <button type="button" (click)="enviarConviteWhatsApp()">Enviar pelo WhatsApp</button>
+        </div>
+        <small>Válido até {{ conviteGerado.expiresAt | date:'dd/MM/yyyy HH:mm' }}.</small>
+      </div>
+    </article>
+
     <article class="panel">
       <h2>Novo evento</h2>
       <form class="form" (ngSubmit)="salvarEvento()">

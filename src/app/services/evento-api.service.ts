@@ -21,6 +21,19 @@ export type UsuarioItem = {
   email: string | null;
 };
 
+export type ConviteGerado = {
+  conviteUrl: string;
+  expiresAt: string;
+  evento: { id: number; titulo: string };
+  usuario: { id: number; nome: string; celular: string };
+};
+
+export type ConvitePublico = {
+  evento: EventoItem;
+  usuarioNome: string;
+  jaInscrito: boolean;
+};
+
 @Injectable({ providedIn: 'root' })
 export class EventoApiService {
   private readonly baseUrl = environment.apiBaseUrl;
@@ -59,5 +72,20 @@ export class EventoApiService {
 
   createUsuario(payload: { nome: string; celular: string; email: string }): Observable<UsuarioItem> {
     return this.http.post<UsuarioItem>(`${this.baseUrl}/admin/usuarios`, payload);
+  }
+
+  createConvite(eventoId: number, usuarioId: number): Observable<ConviteGerado> {
+    return this.http.post<ConviteGerado>(`${this.baseUrl}/admin/eventos/${eventoId}/convites`, { usuarioId });
+  }
+
+  getConvite(eventoId: number, token: string): Observable<ConvitePublico> {
+    return this.http.get<ConvitePublico>(`${this.baseUrl}/eventos/${eventoId}/convites/${token}`);
+  }
+
+  confirmarConvite(eventoId: number, token: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.baseUrl}/eventos/${eventoId}/convites/${token}/confirmar`,
+      {}
+    );
   }
 }
