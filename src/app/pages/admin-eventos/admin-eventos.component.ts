@@ -4,7 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
-import { ConviteGerado, EventoApiService, EventoItem, UsuarioItem } from '../../services/evento-api.service';
+import {
+  ConviteGerado,
+  EventoApiService,
+  EventoItem,
+  InscricaoEventoItem,
+  UsuarioItem
+} from '../../services/evento-api.service';
 
 @Component({
   selector: 'app-admin-eventos',
@@ -15,9 +21,11 @@ import { ConviteGerado, EventoApiService, EventoItem, UsuarioItem } from '../../
 export class AdminEventosComponent implements OnInit {
   eventos: EventoItem[] = [];
   usuarios: UsuarioItem[] = [];
+  inscricoes: InscricaoEventoItem[] = [];
   eventoForm = { titulo: '', descricao: '', local: '', dataEvento: '', prazoInscricao: '' };
   usuarioForm = { nome: '', celular: '', email: '' };
   conviteForm = { eventoId: 0, usuarioId: 0 };
+  eventoInscricoesId = 0;
   conviteGerado: ConviteGerado | null = null;
   feedbackEvento = '';
   feedbackUsuario = '';
@@ -25,6 +33,8 @@ export class AdminEventosComponent implements OnInit {
   erroUsuario = false;
   feedbackConvite = '';
   erroConvite = false;
+  carregandoInscricoes = false;
+  erroInscricoes = '';
 
   constructor(
     private readonly eventoApi: EventoApiService,
@@ -99,6 +109,27 @@ export class AdminEventosComponent implements OnInit {
       },
       error: (response: HttpErrorResponse) => {
         this.mostrarFeedbackConvite(response.error?.error || 'Erro ao gerar convite.', true);
+      }
+    });
+  }
+
+  carregarInscricoes(): void {
+    this.inscricoes = [];
+    this.erroInscricoes = '';
+
+    if (!this.eventoInscricoesId) {
+      return;
+    }
+
+    this.carregandoInscricoes = true;
+    this.eventoApi.getInscricoesEvento(this.eventoInscricoesId).subscribe({
+      next: (inscricoes) => {
+        this.inscricoes = inscricoes;
+        this.carregandoInscricoes = false;
+      },
+      error: (response: HttpErrorResponse) => {
+        this.erroInscricoes = response.error?.error || 'Erro ao carregar inscritos.';
+        this.carregandoInscricoes = false;
       }
     });
   }

@@ -11,6 +11,45 @@
   </div>
 
   <div class="admin-grid">
+    <article class="panel registrations-panel">
+      <div class="registrations-heading">
+        <div>
+          <h2>Inscritos por evento</h2>
+          <p>Selecione um evento para consultar os participantes confirmados.</p>
+        </div>
+        <label>
+          Evento
+          <select
+            [(ngModel)]="eventoInscricoesId"
+            name="eventoInscricoes"
+            (ngModelChange)="carregarInscricoes()"
+          >
+            <option [ngValue]="0">Selecione</option>
+            <option *ngFor="let evento of eventos" [ngValue]="evento.id">
+              {{ evento.titulo }} ({{ evento._count?.inscricoes || 0 }})
+            </option>
+          </select>
+        </label>
+      </div>
+
+      <p class="feedback" *ngIf="carregandoInscricoes">Carregando inscritos...</p>
+      <p class="feedback error" *ngIf="erroInscricoes">{{ erroInscricoes }}</p>
+      <p class="feedback" *ngIf="eventoInscricoesId && !carregandoInscricoes && !erroInscricoes && inscricoes.length === 0">
+        Nenhuma inscrição confirmada neste evento.
+      </p>
+
+      <ol class="registrations-list" *ngIf="inscricoes.length > 0">
+        <li *ngFor="let inscricao of inscricoes">
+          <div>
+            <strong>{{ inscricao.usuario.nome }}</strong>
+            <span>{{ inscricao.usuario.celular }}</span>
+            <span *ngIf="inscricao.usuario.email">{{ inscricao.usuario.email }}</span>
+          </div>
+          <small>Inscrito em {{ inscricao.createdAt | date:'dd/MM/yyyy HH:mm' }}</small>
+        </li>
+      </ol>
+    </article>
+
     <article class="panel invite-panel">
       <h2>Gerar convite individual</h2>
       <p>Escolha o evento e o usuário. O link identificará a pessoa sem solicitar o celular.</p>
@@ -62,7 +101,17 @@
             <span>{{ evento.dataEvento | date:'dd/MM/yyyy HH:mm' }}</span>
             <span *ngIf="evento.local">{{ evento.local }}</span>
           </div>
-          <b>{{ evento._count?.inscricoes || 0 }} inscrições</b>
+          <div class="event-enrollments">
+            <details *ngIf="evento.inscricoes?.length; else semInscritos">
+              <summary>{{ evento._count?.inscricoes || 0 }} inscrições</summary>
+              <ul class="enrollment-names">
+                <li *ngFor="let inscricao of evento.inscricoes">{{ inscricao.usuario.nome }}</li>
+              </ul>
+            </details>
+            <ng-template #semInscritos>
+              <b>0 inscrições</b>
+            </ng-template>
+          </div>
         </li>
       </ul>
     </article>

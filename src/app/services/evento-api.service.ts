@@ -12,6 +12,7 @@ export type EventoItem = {
   prazoInscricao: string | null;
   inscricoesAbertas: boolean;
   _count?: { inscricoes: number };
+  inscricoes?: Array<{ usuario: { nome: string } }>;
 };
 
 export type UsuarioItem = {
@@ -32,6 +33,12 @@ export type ConvitePublico = {
   evento: EventoItem;
   usuarioNome: string;
   jaInscrito: boolean;
+};
+
+export type InscricaoEventoItem = {
+  id: number;
+  createdAt: string;
+  usuario: UsuarioItem;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -76,6 +83,10 @@ export class EventoApiService {
 
   createConvite(eventoId: number, usuarioId: number): Observable<ConviteGerado> {
     return this.http.post<ConviteGerado>(`${this.baseUrl}/admin/eventos/${eventoId}/convites`, { usuarioId });
+  }
+
+  getInscricoesEvento(eventoId: number): Observable<InscricaoEventoItem[]> {
+    return this.http.get<InscricaoEventoItem[]>(`${this.baseUrl}/admin/eventos/${eventoId}/inscricoes`);
   }
 
   getConvite(eventoId: number, token: string): Observable<ConvitePublico> {
