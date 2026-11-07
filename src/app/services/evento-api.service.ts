@@ -12,7 +12,8 @@ export type EventoItem = {
   prazoInscricao: string | null;
   inscricoesAbertas: boolean;
   _count?: { inscricoes: number };
-  inscricoes?: Array<{ usuario: { nome: string } }>;
+  inscricoes?: Array<{ nome: string }>;
+  linkInscricao?: string;
 };
 
 export type UsuarioItem = {
@@ -22,23 +23,13 @@ export type UsuarioItem = {
   email: string | null;
 };
 
-export type ConviteGerado = {
-  conviteUrl: string;
-  expiresAt: string;
-  evento: { id: number; titulo: string };
-  usuario: { id: number; nome: string; celular: string };
-};
-
-export type ConvitePublico = {
-  evento: EventoItem;
-  usuarioNome: string;
-  jaInscrito: boolean;
-};
+export type UsuarioResumo = Pick<UsuarioItem, 'id' | 'nome'>;
 
 export type InscricaoEventoItem = {
   id: number;
+  nome: string;
   createdAt: string;
-  usuario: UsuarioItem;
+  usuario: UsuarioItem | null;
 };
 
 @Injectable({ providedIn: 'root' })
@@ -55,8 +46,14 @@ export class EventoApiService {
     return this.http.get<EventoItem>(`${this.baseUrl}/eventos/${id}`);
   }
 
-  inscrever(id: number, celular: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(`${this.baseUrl}/eventos/${id}/inscricoes`, { celular });
+  inscrever(
+    id: number,
+    participantes: Array<{ nome: string; usuarioId: number | null }>
+  ): Observable<{ message: string; quantidade: number; duplicadas: number }> {
+    return this.http.post<{ message: string; quantidade: number; duplicadas: number }>(
+      `${this.baseUrl}/eventos/${id}/inscricoes`,
+      { participantes }
+    );
   }
 
   getEventosAdmin(): Observable<EventoItem[]> {
@@ -81,22 +78,12 @@ export class EventoApiService {
     return this.http.post<UsuarioItem>(`${this.baseUrl}/admin/usuarios`, payload);
   }
 
-  createConvite(eventoId: number, usuarioId: number): Observable<ConviteGerado> {
-    return this.http.post<ConviteGerado>(`${this.baseUrl}/admin/eventos/${eventoId}/convites`, { usuarioId });
+  buscarUsuarios(nome: string): Observable<UsuarioResumo[]> {
+    return this.http.get<UsuarioResumo[]>(`${this.baseUrl}/usuarios/busca?nome=${encodeURIComponent(nome)}`);
   }
 
   getInscricoesEvento(eventoId: number): Observable<InscricaoEventoItem[]> {
     return this.http.get<InscricaoEventoItem[]>(`${this.baseUrl}/admin/eventos/${eventoId}/inscricoes`);
   }
 
-  getConvite(eventoId: number, token: string): Observable<ConvitePublico> {
-    return this.http.get<ConvitePublico>(`${this.baseUrl}/eventos/${eventoId}/convites/${token}`);
-  }
-
-  confirmarConvite(eventoId: number, token: string): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
-      `${this.baseUrl}/eventos/${eventoId}/convites/${token}/confirmar`,
-      {}
-    );
-  }
 }

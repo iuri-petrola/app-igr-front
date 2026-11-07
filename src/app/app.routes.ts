@@ -13,7 +13,6 @@ import { AdminLoginComponent } from './pages/admin-login/admin-login.component';
 import { AdminEventosComponent } from './pages/admin-eventos/admin-eventos.component';
 import { EventosComponent } from './pages/eventos/eventos.component';
 import { InscricaoEventoComponent } from './pages/inscricao-evento/inscricao-evento.component';
-import { ConviteEventoComponent } from './pages/convite-evento/convite-evento.component';
 import { adminAuthGuard } from './guards/admin-auth.guard';
 import { adminRedirectGuard } from './guards/admin-redirect.guard';
 
@@ -42,7 +41,6 @@ export const routes: Routes = [
   { path: 'contato', component: ContatoComponent },
   { path: 'eventos', component: EventosComponent },
   { path: 'eventos/:id/inscricao', component: InscricaoEventoComponent },
-  { path: 'eventos/:id/convite/:token', component: ConviteEventoComponent },
   { path: 'admin', canActivate: [adminRedirectGuard], pathMatch: 'full', children: [] },
   { path: 'admin/login', component: AdminLoginComponent },
   { path: 'admin/midias', component: AdminMidiasComponent, canActivate: [adminAuthGuard] },

@@ -12,21 +12,49 @@
     </div>
 
     <form class="registration-form" (ngSubmit)="realizarInscricao()">
-      <h2>Confirme sua participação</h2>
-      <p>Digite o mesmo celular usado no cadastro da igreja. Seus outros dados serão preenchidos automaticamente.</p>
-      <label for="celular">Celular com DDD</label>
-      <input
-        id="celular"
-        name="celular"
-        type="tel"
-        inputmode="numeric"
-        autocomplete="tel"
-        [(ngModel)]="celular"
-        placeholder="(85) 99999-9999"
-        required
-      />
+      <h2>Quem vai participar?</h2>
+      <p>Informe o nome de cada pessoa que deseja inscrever neste evento.</p>
+
+      <div class="participant-row" *ngFor="let participante of participantes; let i = index; trackBy: trackByIndex">
+        <label [for]="'participante-' + i">Participante {{ i + 1 }}</label>
+        <div>
+          <input
+            [id]="'participante-' + i"
+            [name]="'participante-' + i"
+            type="text"
+            autocomplete="name"
+            [(ngModel)]="participante.nome"
+            (ngModelChange)="nomeAlterado(i)"
+            placeholder="Nome completo"
+            maxlength="120"
+            required
+          />
+          <button
+            class="remove-participant"
+            type="button"
+            *ngIf="participantes.length > 1"
+            (click)="removerParticipante(i)"
+            aria-label="Remover participante"
+          >
+            Remover
+          </button>
+        </div>
+        <small class="searching" *ngIf="participante.pesquisando">Pesquisando cadastro...</small>
+        <ul class="user-suggestions" *ngIf="participante.sugestoes.length > 0">
+          <li *ngFor="let usuario of participante.sugestoes">
+            <button type="button" (click)="selecionarUsuario(i, usuario)">
+              {{ usuario.nome }} <span>Usuário cadastrado</span>
+            </button>
+          </li>
+        </ul>
+        <small class="selected-user" *ngIf="participante.usuarioId">Cadastro localizado e selecionado.</small>
+      </div>
+
+      <button class="add-participant" type="button" (click)="adicionarParticipante()" [disabled]="participantes.length >= 20">
+        + Adicionar outra pessoa
+      </button>
       <button type="submit" [disabled]="enviando || !!mensagem">
-        {{ enviando ? 'Confirmando...' : 'Confirmar inscrição' }}
+        {{ enviando ? 'Enviando...' : 'Realizar inscrição' }}
       </button>
       <p class="feedback success" *ngIf="mensagem">{{ mensagem }}</p>
       <p class="feedback error" *ngIf="erro">{{ erro }}</p>

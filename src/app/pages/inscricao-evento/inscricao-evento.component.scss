@@ -69,6 +69,8 @@
 }
 
 label {
+  display: block;
+  margin-bottom: 5px;
   color: #29443d;
   font-weight: 700;
 }
@@ -97,6 +99,74 @@ button:disabled {
   opacity: 0.65;
 }
 
+.participant-row > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+}
+
+.searching,
+.selected-user {
+  display: block;
+  margin-top: 5px;
+  color: #45625b;
+}
+
+.selected-user {
+  color: #0b6e62;
+  font-weight: 700;
+}
+
+.user-suggestions {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  margin: 5px 0 0;
+  padding: 6px;
+  border: 1px solid #bfd5cd;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(27, 69, 58, 0.14);
+  list-style: none;
+}
+
+.user-suggestions button {
+  width: 100%;
+  min-height: auto;
+  padding: 9px 10px;
+  border-radius: 6px;
+  color: #29443d;
+  background: transparent;
+  text-align: left;
+}
+
+.user-suggestions button:hover {
+  background: #eef7f2;
+}
+
+.user-suggestions span {
+  display: block;
+  margin-top: 2px;
+  color: #6a817b;
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+button.remove-participant,
+button.add-participant {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid #bfd5cd;
+  border-radius: 9px;
+  color: #145b4a;
+  background: #eef7f2;
+}
+
+button.add-participant {
+  width: 100%;
+}
+
 .feedback.success {
   color: #0b6e62;
   font-weight: 700;
@@ -116,5 +186,9 @@ button:disabled {
 
   .registration-form {
     padding: 22px;
+  }
+
+  .participant-row > div {
+    grid-template-columns: 1fr;
   }
 }

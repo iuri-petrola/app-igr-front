@@ -55,7 +55,6 @@
   font-family: Georgia, serif;
 }
 
-.invite-panel,
 .registrations-panel {
   grid-column: 1 / -1;
 }
@@ -110,17 +109,6 @@
   font-size: 0.8rem;
 }
 
-.invite-panel > p {
-  color: #506b63;
-}
-
-.invite-form {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
-  gap: 10px;
-  align-items: end;
-}
-
 .form {
   display: grid;
   gap: 10px;
@@ -143,29 +131,6 @@ textarea {
   border-radius: 8px;
   background: #fff;
   font: inherit;
-}
-
-.invite-result {
-  display: grid;
-  gap: 10px;
-  margin-top: 14px;
-  padding: 14px;
-  border-radius: 10px;
-  background: #eef7f2;
-}
-
-.invite-link {
-  font-family: monospace;
-}
-
-.invite-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.invite-result small {
-  color: #45625b;
 }
 
 button {
@@ -250,12 +215,21 @@ button.secondary {
   line-height: 1.35;
 }
 
+.event-link-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.event-link-actions button {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+}
+
 @media (max-width: 820px) {
   .admin-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .invite-form {
     grid-template-columns: 1fr;
   }
 
@@ -266,5 +240,14 @@ button.secondary {
 
   .event-enrollments {
     max-width: 100%;
+  }
+
+  .list > li {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .event-link-actions {
+    justify-content: flex-start;
   }
 }

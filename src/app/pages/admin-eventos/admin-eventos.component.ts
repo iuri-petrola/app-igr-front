@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AdminAuthService } from '../../services/admin-auth.service';
 import {
-  ConviteGerado,
   EventoApiService,
   EventoItem,
   InscricaoEventoItem,
@@ -24,15 +23,12 @@ export class AdminEventosComponent implements OnInit {
   inscricoes: InscricaoEventoItem[] = [];
   eventoForm = { titulo: '', descricao: '', local: '', dataEvento: '', prazoInscricao: '' };
   usuarioForm = { nome: '', celular: '', email: '' };
-  conviteForm = { eventoId: 0, usuarioId: 0 };
   eventoInscricoesId = 0;
-  conviteGerado: ConviteGerado | null = null;
   feedbackEvento = '';
   feedbackUsuario = '';
   erroEvento = false;
   erroUsuario = false;
-  feedbackConvite = '';
-  erroConvite = false;
+  feedbackLink = '';
   carregandoInscricoes = false;
   erroInscricoes = '';
 
@@ -45,6 +41,28 @@ export class AdminEventosComponent implements OnInit {
   ngOnInit(): void {
     this.carregarEventos();
     this.carregarUsuarios();
+  }
+
+  salvarUsuario(): void {
+    if (!this.usuarioForm.nome.trim() || !this.usuarioForm.celular.trim()) {
+      this.mostrarFeedbackUsuario('Preencha o nome e o celular.', true);
+      return;
+    }
+
+    this.eventoApi.createUsuario({
+      nome: this.usuarioForm.nome.trim(),
+      celular: this.usuarioForm.celular.trim(),
+      email: this.usuarioForm.email.trim()
+    }).subscribe({
+      next: () => {
+        this.usuarioForm = { nome: '', celular: '', email: '' };
+        this.mostrarFeedbackUsuario('Usuário cadastrado com sucesso.', false);
+        this.carregarUsuarios();
+      },
+      error: (response: HttpErrorResponse) => {
+        this.mostrarFeedbackUsuario(response.error?.error || 'Erro ao cadastrar usuário.', true);
+      }
+    });
   }
 
   salvarEvento(): void {
@@ -73,46 +91,6 @@ export class AdminEventosComponent implements OnInit {
     });
   }
 
-  salvarUsuario(): void {
-    if (!this.usuarioForm.nome.trim() || !this.usuarioForm.celular.trim()) {
-      this.mostrarFeedbackUsuario('Preencha o nome e o celular.', true);
-      return;
-    }
-
-    this.eventoApi.createUsuario({
-      nome: this.usuarioForm.nome.trim(),
-      celular: this.usuarioForm.celular.trim(),
-      email: this.usuarioForm.email.trim()
-    }).subscribe({
-      next: () => {
-        this.usuarioForm = { nome: '', celular: '', email: '' };
-        this.mostrarFeedbackUsuario('Usuário cadastrado com sucesso.', false);
-        this.carregarUsuarios();
-      },
-      error: (response: HttpErrorResponse) => {
-        this.mostrarFeedbackUsuario(response.error?.error || 'Erro ao cadastrar usuário.', true);
-      }
-    });
-  }
-
-  gerarConvite(): void {
-    if (!this.conviteForm.eventoId || !this.conviteForm.usuarioId) {
-      this.mostrarFeedbackConvite('Selecione o evento e o usuário.', true);
-      return;
-    }
-
-    this.conviteGerado = null;
-    this.eventoApi.createConvite(this.conviteForm.eventoId, this.conviteForm.usuarioId).subscribe({
-      next: (convite) => {
-        this.conviteGerado = convite;
-        this.mostrarFeedbackConvite('Link individual gerado com sucesso.', false);
-      },
-      error: (response: HttpErrorResponse) => {
-        this.mostrarFeedbackConvite(response.error?.error || 'Erro ao gerar convite.', true);
-      }
-    });
-  }
-
   carregarInscricoes(): void {
     this.inscricoes = [];
     this.erroInscricoes = '';
@@ -134,34 +112,31 @@ export class AdminEventosComponent implements OnInit {
     });
   }
 
-  async copiarConvite(): Promise<void> {
-    if (!this.conviteGerado) {
+  async copiarLinkEvento(evento: EventoItem): Promise<void> {
+    if (!evento.linkInscricao) {
       return;
     }
 
     try {
-      await navigator.clipboard.writeText(this.conviteGerado.conviteUrl);
-      this.mostrarFeedbackConvite('Link copiado.', false);
+      await navigator.clipboard.writeText(evento.linkInscricao);
+      this.feedbackLink = `Link de ${evento.titulo} copiado.`;
     } catch (_error) {
-      this.mostrarFeedbackConvite('Não foi possível copiar. Selecione o link manualmente.', true);
+      this.feedbackLink = 'Não foi possível copiar o link.';
     }
   }
 
-  enviarConviteWhatsApp(): void {
-    if (!this.conviteGerado) {
+  compartilharEvento(evento: EventoItem): void {
+    if (!evento.linkInscricao) {
       return;
     }
 
-    const celular = this.conviteGerado.usuario.celular.replace(/\D/g, '');
-    const numero = celular.startsWith('55') ? celular : `55${celular}`;
     const mensagem = [
-      `Olá, ${this.conviteGerado.usuario.nome}!`,
-      `Você foi convidado para o evento ${this.conviteGerado.evento.titulo}.`,
-      'Abra o link e confirme sua inscrição:',
-      this.conviteGerado.conviteUrl
+      `Inscrições para o evento ${evento.titulo}.`,
+      'Abra o link e informe os nomes dos participantes:',
+      evento.linkInscricao
     ].join('\n');
 
-    window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
+    window.open(`https://wa.me/?text=${encodeURIComponent(mensagem)}`, '_blank', 'noopener');
   }
 
   logout(): void {
@@ -193,8 +168,4 @@ export class AdminEventosComponent implements OnInit {
     this.erroUsuario = erro;
   }
 
-  private mostrarFeedbackConvite(mensagem: string, erro: boolean): void {
-    this.feedbackConvite = mensagem;
-    this.erroConvite = erro;
-  }
 }

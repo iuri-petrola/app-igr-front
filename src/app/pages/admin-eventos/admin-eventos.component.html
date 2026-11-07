@@ -1,7 +1,7 @@
 <section class="page">
   <div class="page-header">
     <h1>Página do Administrador</h1>
-    <p class="lead">Cadastre os participantes e publique eventos com inscrição.</p>
+    <p class="lead">Publique eventos, compartilhe o link e acompanhe as inscrições.</p>
     <nav class="admin-nav">
       <a routerLink="/admin/midias" routerLinkActive="active">Mídias</a>
       <a routerLink="/admin/pedidos" routerLinkActive="active">Pedidos</a>
@@ -41,45 +41,13 @@
       <ol class="registrations-list" *ngIf="inscricoes.length > 0">
         <li *ngFor="let inscricao of inscricoes">
           <div>
-            <strong>{{ inscricao.usuario.nome }}</strong>
-            <span>{{ inscricao.usuario.celular }}</span>
-            <span *ngIf="inscricao.usuario.email">{{ inscricao.usuario.email }}</span>
+            <strong>{{ inscricao.nome }}</strong>
+            <span *ngIf="inscricao.usuario?.celular">{{ inscricao.usuario?.celular }}</span>
+            <span *ngIf="inscricao.usuario?.email">{{ inscricao.usuario?.email }}</span>
           </div>
           <small>Inscrito em {{ inscricao.createdAt | date:'dd/MM/yyyy HH:mm' }}</small>
         </li>
       </ol>
-    </article>
-
-    <article class="panel invite-panel">
-      <h2>Gerar convite individual</h2>
-      <p>Escolha o evento e o usuário. O link identificará a pessoa sem solicitar o celular.</p>
-      <form class="invite-form" (ngSubmit)="gerarConvite()">
-        <label>
-          Evento
-          <select [(ngModel)]="conviteForm.eventoId" name="conviteEvento" required>
-            <option [ngValue]="0">Selecione</option>
-            <option *ngFor="let evento of eventos" [ngValue]="evento.id">{{ evento.titulo }}</option>
-          </select>
-        </label>
-        <label>
-          Usuário
-          <select [(ngModel)]="conviteForm.usuarioId" name="conviteUsuario" required>
-            <option [ngValue]="0">Selecione</option>
-            <option *ngFor="let usuario of usuarios" [ngValue]="usuario.id">{{ usuario.nome }} — {{ usuario.celular }}</option>
-          </select>
-        </label>
-        <button type="submit">Gerar link</button>
-      </form>
-      <p class="feedback" [class.error]="erroConvite" *ngIf="feedbackConvite">{{ feedbackConvite }}</p>
-
-      <div class="invite-result" *ngIf="conviteGerado">
-        <input class="invite-link" [value]="conviteGerado.conviteUrl" readonly aria-label="Link do convite" />
-        <div class="invite-actions">
-          <button type="button" class="secondary" (click)="copiarConvite()">Copiar link</button>
-          <button type="button" (click)="enviarConviteWhatsApp()">Enviar pelo WhatsApp</button>
-        </div>
-        <small>Válido até {{ conviteGerado.expiresAt | date:'dd/MM/yyyy HH:mm' }}.</small>
-      </div>
     </article>
 
     <article class="panel">
@@ -105,15 +73,20 @@
             <details *ngIf="evento.inscricoes?.length; else semInscritos">
               <summary>{{ evento._count?.inscricoes || 0 }} inscrições</summary>
               <ul class="enrollment-names">
-                <li *ngFor="let inscricao of evento.inscricoes">{{ inscricao.usuario.nome }}</li>
+                <li *ngFor="let inscricao of evento.inscricoes">{{ inscricao.nome }}</li>
               </ul>
             </details>
             <ng-template #semInscritos>
               <b>0 inscrições</b>
             </ng-template>
           </div>
+          <div class="event-link-actions">
+            <button type="button" class="secondary" (click)="copiarLinkEvento(evento)">Copiar link</button>
+            <button type="button" (click)="compartilharEvento(evento)">WhatsApp</button>
+          </div>
         </li>
       </ul>
+      <p class="feedback" *ngIf="feedbackLink">{{ feedbackLink }}</p>
     </article>
 
     <article class="panel">
