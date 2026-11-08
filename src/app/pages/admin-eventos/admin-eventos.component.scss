@@ -190,8 +190,14 @@ button.secondary {
 }
 
 .event-enrollments {
+  flex: 1;
   max-width: 55%;
+  margin-left: auto;
   text-align: right;
+}
+
+.event-enrollments details {
+  width: 100%;
 }
 
 .event-enrollments summary {
@@ -203,12 +209,14 @@ button.secondary {
 
 .enrollment-names {
   display: grid;
+  justify-items: end;
   gap: 4px;
   margin: 8px 0 0;
   padding: 0;
   color: #29443d;
   font-size: 0.84rem;
   list-style-position: inside;
+  text-align: right;
 }
 
 .enrollment-names li {
