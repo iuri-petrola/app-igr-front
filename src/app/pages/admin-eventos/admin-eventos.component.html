@@ -69,20 +69,22 @@
             <span>{{ evento.dataEvento | date:'dd/MM/yyyy HH:mm' }}</span>
             <span *ngIf="evento.local">{{ evento.local }}</span>
           </div>
-          <div class="event-enrollments">
-            <details *ngIf="evento.inscricoes?.length; else semInscritos">
-              <summary>{{ evento._count?.inscricoes || 0 }} inscrições</summary>
-              <ul class="enrollment-names">
-                <li *ngFor="let inscricao of evento.inscricoes">{{ inscricao.nome }}</li>
-              </ul>
-            </details>
-            <ng-template #semInscritos>
-              <b>0 inscrições</b>
-            </ng-template>
-          </div>
-          <div class="event-link-actions">
-            <button type="button" class="secondary" (click)="copiarLinkEvento(evento)">Copiar link</button>
-            <button type="button" (click)="compartilharEvento(evento)">WhatsApp</button>
+          <div class="event-side">
+            <div class="event-enrollments">
+              <details *ngIf="evento.inscricoes?.length; else semInscritos">
+                <summary>{{ evento._count?.inscricoes || 0 }} inscrições</summary>
+                <ul class="enrollment-names">
+                  <li *ngFor="let inscricao of evento.inscricoes">{{ inscricao.nome }}</li>
+                </ul>
+              </details>
+              <ng-template #semInscritos>
+                <b>0 inscrições</b>
+              </ng-template>
+            </div>
+            <div class="event-link-actions">
+              <button type="button" class="secondary" (click)="copiarLinkEvento(evento)">Copiar link</button>
+              <button type="button" (click)="compartilharEvento(evento)">WhatsApp</button>
+            </div>
           </div>
         </li>
       </ul>

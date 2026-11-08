@@ -168,13 +168,19 @@ button.secondary {
 }
 
 .list > li {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(210px, auto);
   gap: 12px;
   padding: 11px;
   border: 1px solid #e1ece8;
   border-radius: 8px;
   background: #fff;
+}
+
+.event-side {
+  display: grid;
+  justify-items: end;
+  gap: 12px;
 }
 
 .list strong,
@@ -190,9 +196,7 @@ button.secondary {
 }
 
 .event-enrollments {
-  flex: 1;
-  max-width: 55%;
-  margin-left: auto;
+  width: 100%;
   text-align: right;
 }
 
@@ -215,7 +219,7 @@ button.secondary {
   padding: 0;
   color: #29443d;
   font-size: 0.84rem;
-  list-style-position: inside;
+  list-style: none;
   text-align: right;
 }
 
@@ -247,12 +251,30 @@ button.secondary {
   }
 
   .event-enrollments {
-    max-width: 100%;
+    width: 100%;
   }
 
   .list > li {
-    align-items: stretch;
-    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+
+  .event-side {
+    justify-items: start;
+  }
+
+  .event-enrollments,
+  .enrollment-names {
+    text-align: left;
+  }
+
+  .event-enrollments summary,
+  .event-enrollments b {
+    display: block;
+    text-align: left;
+  }
+
+  .enrollment-names {
+    justify-items: start;
   }
 
   .event-link-actions {
